@@ -78,8 +78,8 @@ export default function Signup() {
     >
       <Paper elevation={10}>
         <Box  sx={{mx:8,my:2,fontSize:25}}><p>Signup page!</p></Box>
-        <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="filled-basic" label="User Name" variant="filled" />
-        <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="filled-basic" label="Email Id" variant="filled" />
+        <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="filled-basic" label="User Name" variant="filled" onChange={(e)=>setUsername(e.target.value)}/>
+        <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="filled-basic" label="Email Id" variant="filled" onChange={(e)=>setEmail(e.target.value)}/>
         <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="filled-basic" label="Password" variant="filled" />
         <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="filled-basic" label="Renter Password" variant="filled" />
         <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="filled-basic" label="Gender" variant="filled" />
