@@ -15,10 +15,11 @@ export default function Login() {
   const [validate_password, setValidate_password] = useState(null);
 
   const checkUsername = () => {
-    if (username === '') {
-      setValidate_name("enter the username");
+    if (username.length===0) {
+      setValidate_name("Empty username");
       return false;
     }
+    setValidate_name('');
     return true;
   };
   const checkEmail = () => {
@@ -32,6 +33,7 @@ export default function Login() {
       setValidate_email("Email is not valid");
       return false;
     }
+    setValidate_email('');
     return true;
   };
   const checkPassword = () => {
@@ -45,6 +47,7 @@ export default function Login() {
       setValidate_password("Password is not valid");
       return false;
     }
+    setValidate_password(null);
     return true;
   };
   const handleButtonClick = () => {
@@ -76,10 +79,10 @@ export default function Login() {
                 label="User Name"
                 variant="filled"
                 type="text"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {setUsername(e.target.value); checkUsername();}}
               />
               {validate_name && (
-                <Box >{validate_name}</Box>
+                <Box sx={{color:'red',mx:3}}>{validate_name}</Box>
               )}
 
               <TextField
@@ -87,10 +90,10 @@ export default function Login() {
                 label="Email Id"
                 variant="filled"
                 type="email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {setEmail(e.target.value); checkEmail();}}
               />
               {validate_email && (
-                <Box >{validate_email}</Box>
+                <Box sx={{color:'red',mx:3}}>{validate_email}</Box>
               )}
 
               <TextField
@@ -98,10 +101,10 @@ export default function Login() {
                 label="Password"
                 variant="filled"
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {setPassword(e.target.value); checkPassword();}}
               />
               {validate_password && (
-                <Box >{validate_password}</Box>
+                <Box sx={{color:'red',mx:3}}>{validate_password}</Box>
               )}
 
               <Button
