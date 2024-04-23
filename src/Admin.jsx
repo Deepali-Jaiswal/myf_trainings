@@ -1,15 +1,36 @@
 
+
+
+
 import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Typography,Button} from '@mui/material';
 import { useEffect,useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Admin() {
-  const [usersArray,setUsersArray]=useState([]);
+  const navigate=useNavigate();
+  const [rows, setRows]= useState([]);
   useEffect(()=>{
-  const storage=JSON.parse(localStorage.getItem("storage")) || [];
-  setUsersArray([...storage]);
+    const users = JSON.parse(localStorage.getItem("storage"));
+    const arr = [];
+    for (let email in users) {
+      arr.push({ email, ...users[email] });
+    }
+    console.log(arr);
+    setRows(arr);
   },[]);
 
+  const delDetails=()=>{
+
+  }
+
+  const editDetails=(text)=>{
+    console.log(text);
+    navigate("/editUser",{state:{email:text}})
+  }
+
   return (
+    
     <TableContainer component={Paper}>
       <Typography variant="h4" align="center">Admin Panel</Typography>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -24,8 +45,9 @@ export default function Admin() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {usersArray.map((row) => (
-            <TableRow
+            {
+              rows.map((row,index)=>(
+                <TableRow
               key={row.email}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
@@ -35,16 +57,17 @@ export default function Admin() {
               <TableCell align="right">{row.username}</TableCell>
               <TableCell align="right">{row.gender}</TableCell>
               <TableCell align="right">{row.phone}</TableCell>
-              <TableCell align ="right">
-                   <Button variant="contained"  color="error">Delete</Button>
+              <TableCell align ="right" >
+              <Button variant="contained" color="error" onClick={delDetails}>Delete</Button>
               </TableCell>
-              <TableCell align ="right">
-                   <Button variant="contained">Edit</Button>
+              <TableCell  align ="right">
+              <Button variant="contained" onClick={()=>editDetails(row.email)}>Edit</Button>
               </TableCell>
-            </TableRow>
-          ))}
+            </TableRow> 
+              ))} 
         </TableBody>
       </Table>
     </TableContainer>
+    
   );
 }

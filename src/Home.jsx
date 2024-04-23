@@ -1,20 +1,38 @@
-
 import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper,Typography,Button} from '@mui/material';
 import { useEffect,useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
+import { useLocation,useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const location=useLocation();
-  const temp=location.state.email
-  const [detailUser,setDetailUser]=useState([]);
+  const navigate=useNavigate();
+  const temp=location.state.email;
+  const [detailUser,setDetailUser]=useState({});
+
   useEffect(()=>{
-  const storage=JSON.parse(localStorage.getItem("storage")) || [];
-  setDetailUser(storage.filter((user)=> user['email']===temp) ) 
+  const storage=JSON.parse(localStorage.getItem("storage"));
+  console.log(storage);
+  setDetailUser(storage[temp]);
+  console.log("humara naya data");
+  console.log(detailUser);
   },[]);
 
+  const editDetails=()=>{
+    navigate("/edituser",{state:{email:location.state.email}});
+  }
+
+  const deleteDetails=()=>{
+    localStorage.removeItem(location.state.email);
+    console.log("deeps");
+    console.log(JSON.parse(localStorage.getItem("storage")));
+    setDetailUser(null);
+  }
+
   return (
+    
     <TableContainer component={Paper}>
+      <Typography variant="h4" align="right" sx={{mx:5}}>
+        <Button variant="contained" onClick={()=>navigate('/')}>Logout</Button>
+      </Typography>
       <Typography variant="h4" align="center">User</Typography>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -28,27 +46,27 @@ export default function Home() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {detailUser.map((row) => (
+            {detailUser &&
             <TableRow
-              key={row.email}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.email}
-              </TableCell>
-              <TableCell align="right">{row.username}</TableCell>
-              <TableCell align="right">{row.gender}</TableCell>
-              <TableCell align="right">{row.phone}</TableCell>
-              <TableCell>
-              <Button variant="contained" align ="right" color="error">Delete</Button>
-              </TableCell>
-              <TableCell>
-              <Button variant="contained" align ="right">Edit</Button>
-              </TableCell>
-            </TableRow>
-          ))}
+            key={detailUser.email}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row">
+              {detailUser.email}
+            </TableCell>
+            <TableCell align="right">{detailUser.username}</TableCell>
+            <TableCell align="right">{detailUser.gender}</TableCell>
+            <TableCell align="right">{detailUser.phone}</TableCell>
+            <TableCell align ="right" >
+            <Button variant="contained" color="error" onClick={deleteDetails}>Delete</Button>
+            </TableCell>
+            <TableCell  align ="right">
+            <Button variant="contained" onClick={editDetails}>Edit</Button>
+            </TableCell>
+          </TableRow>}
         </TableBody>
       </Table>
     </TableContainer>
+    
   );
 }

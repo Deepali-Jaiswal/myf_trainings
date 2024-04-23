@@ -13,7 +13,7 @@ export default function Signup() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [pwd, setPassword] = useState("");
 
   const [validate_name, setValidate_name] = useState(null);
   const [validate_email, setValidate_email] = useState(null);
@@ -67,29 +67,29 @@ export default function Signup() {
     console.log(username, validUsername);
     const validEmail = generalisedChange(email, "email");
     console.log(email, validEmail);
-    const validPassword = generalisedChange(password, "password");
-    console.log(password, validPassword);
+    const validPassword = generalisedChange(pwd, "password");
+    console.log(pwd, validPassword);
 
     console.log(validUsername, validEmail, validPassword);
     if (validUsername && validEmail && validPassword) {
-      const users = JSON.parse(localStorage.getItem("storage")) || [];
-      const curruser=users.filter((user)=> user.email===email);
-      console.log(curruser);
-      
-      if (curruser.length===0) { 
-        setValidate_email("Email is not registered!");
-        setPassword("");   
-      } 
-      else if (users[0]['password'] !== password) {
-        setValidate_password("Wrong Password!");
-        setPassword("");
-      } else {
-        if (email === "admin@gmail.com") {
-          navigate("/adminpanel");
-        } else {
-          navigate("/home", { state: { email } });
-        }
+
+      const users = JSON.parse(localStorage.getItem("storage"));
+      console.log(users);
+
+      if(users[email])
+      {
+        console.log("deeps");
+        if(users[email].password!==pwd)
+        validate_password("Incorrect Password");
+        else if(email==='admin@gmail.com')
+        navigate("/adminpanel");
+        else
+        navigate("/home",{state:{email}});
       }
+      else{
+        validate_email("this email is not registered");
+      }
+      
     }
   };
 
