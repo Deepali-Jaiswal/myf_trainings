@@ -20,8 +20,17 @@ export default function Admin() {
     setRows(arr);
   },[]);
 
-  const delDetails=()=>{
-
+  const delDetails=(temp)=>{
+    const users=JSON.parse(localStorage.getItem("storage"));
+    delete users[temp];
+    localStorage.setItem("storage",JSON.stringify(users));
+    const arr = [];
+    for (let email in users) {
+      arr.push({ email, ...users[email] });
+    }
+    console.log(arr);
+    setRows(arr);
+    // console.log("deepali");
   }
 
   const editDetails=(text)=>{
@@ -58,7 +67,7 @@ export default function Admin() {
               <TableCell align="right">{row.gender}</TableCell>
               <TableCell align="right">{row.phone}</TableCell>
               <TableCell align ="right" >
-              <Button variant="contained" color="error" onClick={delDetails}>Delete</Button>
+              <Button variant="contained" color="error" onClick={()=>delDetails(row.email)}>Delete</Button>
               </TableCell>
               <TableCell  align ="right">
               <Button variant="contained" onClick={()=>editDetails(row.email)}>Edit</Button>

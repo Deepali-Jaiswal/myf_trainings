@@ -21,9 +21,10 @@ export default function Home() {
   }
 
   const deleteDetails=()=>{
-    localStorage.removeItem(location.state.email);
-    console.log("deeps");
-    console.log(JSON.parse(localStorage.getItem("storage")));
+    const storage=JSON.parse(localStorage.getItem("storage"));
+    const temp=location.state.email;
+    delete storage[temp];
+    localStorage.setItem("storage",JSON.stringify(storage));
     setDetailUser(null);
   }
 

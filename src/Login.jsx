@@ -80,14 +80,14 @@ export default function Signup() {
       {
         console.log("deeps");
         if(users[email].password!==pwd)
-        validate_password("Incorrect Password");
+        setValidate_password("Incorrect Password");
         else if(email==='admin@gmail.com')
         navigate("/adminpanel");
         else
         navigate("/home",{state:{email}});
       }
       else{
-        validate_email("this email is not registered");
+        setValidate_email("this email is not registered");
       }
       
     }
