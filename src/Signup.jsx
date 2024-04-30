@@ -1,6 +1,6 @@
 
 import Paper from '@mui/material/Paper';
-import { Button,TextField,Container,Stack,Typography} from '@mui/material';
+import { Button,TextField,Container,Stack,Typography,Radio,RadioGroup,FormLabel,FormControlLabel,FormHelperText} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -85,11 +85,6 @@ export default function Signup() {
       setValidate_gender("enter the gender");
       return false;
     }
-    if(data!=='M' && data!=='F')
-    {
-      setValidate_gender("enter either M or F");
-      return false;
-    }
     setGender(data);
     setValidate_gender(null);
     return true;
@@ -117,104 +112,7 @@ export default function Signup() {
       }
     }
   }
-
-  // const checkUsername = (username1) => {
-  //   if (username1 === '') {
-  //     setValidate_name("Please enter username");
-  //     return false;
-  //   }
-  //   setUsername(username1);
-  //   setValidate_name(null);
-  //   return true;
-  // };
-  // const checkEmail = (email1) => {
-  //   const isEmailValid =
-  //     /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(email1);
-  //   if (email1 === '') {
-  //     setValidate_email("Please enter email");
-  //     return false;
-  //   }
-  //   if (!isEmailValid) {
-  //     setValidate_email("Email is not valid");
-  //     return false;
-  //   }
-  //   setEmail(email1)
-  //   setValidate_email(null);
-  //   return true;
-  // };
-  // const checkPassword = (password1) => {
-  //   const isPwdValid =
-  //     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password1);
-  //   if (password1 === '') {
-  //     setValidate_password("Please enter password");
-  //     return false;
-  //   }
-  //   if (!isPwdValid) {
-  //     setValidate_password("Password is not valid");
-  //     return false;
-  //   }
-  //   setPassword(password1);
-  //   setValidate_password(null);
-  //   return true;
-  // };
-  // const recheckPassword=(password1)=>{
-  //   const isPwdValid =
-  //     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password1);
-  //   if (password1 === '') {
-  //     setValidate_repwd("Please enter password");
-  //     return false;
-  //   }
-  //   if (!isPwdValid) {
-  //     setValidate_repwd("Password is not valid");
-  //     return false;
-  //   }
-  //   if(password!==password1){
-  //     setValidate_repwd("Password does not match with previous entered password");
-  //     return false;
-  //   }
-  //   setRepwd(password1);
-  //   setValidate_repwd(null);
-  //   return true;
-  // }
-  // const checkGender=(gender1)=>{
-  //   if(gender1==='')
-  //   {
-  //     setValidate_gender("enter the gender");
-  //     return false;
-  //   }
-  //   if(gender1!=='M' && gender1!=='F')
-  //   {
-  //     setValidate_gender("enter either M or F");
-  //     return false;
-  //   }
-  //   setGender(gender1);
-  //   setValidate_gender(null);
-  //   return true;
-  // }
-
-  // const checkPhone=(phone1)=>{
-  //   let x=phone1.length;
-  //   if(phone1[x-1]>='0' && phone1[x-1]<='9')
-  //   {
-  //     setPhone(phone1);
-  //   }
-  //   else{
-  //     setValidate_phone("entry shud contain only digits");
-  //     return false;
-  //   }
-
-  //   if(x===10)
-  //   {
-  //     setValidate_phone(null);
-  //     return true;
-  //   }
-  //   else
-  //   {
-  //     setValidate_phone('entry shud contain exactly 10 digits');
-  //     return false;
-  //   }
-    
-  // }
+   
   const handleButtonClick = (e) => {
     e.preventDefault();
     console.log(e);
@@ -260,12 +158,27 @@ export default function Signup() {
           <Paper elevation={1} sx={{ width: '400px', padding: '20px' }}>
             <Stack direction="column" gap={2}>
               <Typography variant="h4" align="center">Sign UP!</Typography>
-              <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="name" label="User Name" variant="filled" error={validate_name!==null} helperText={validate_name} onChange={(e)=>{validation(e.target.value,"name")}} />
-              <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="email" label="Email Id" variant="filled" error={validate_email!==null} helperText={validate_email} onChange={(e)=>{validation(e.target.value,"email");}}/>
-              <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="pwd" type="password" label="Password" variant="filled" error={validate_password!==null} helperText={validate_password} onChange={(e)=>{validation(e.target.value,"password");}}/>
-              <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="repwd"  type="password" label="Renter Password" variant="filled" error={validate_repwd!==null} helperText={validate_repwd} onChange={(e)=>{validation(e.target.value,"recheckPassword");}}/>
-              <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="gender" label="Gender-M/F" variant="filled" error={validate_gender!==null} helperText={validate_gender} onChange={(e)=>{validation(e.target.value,"gender");}} />
-              <TextField sx={{backgroundColor:'white',mx:3,my:1,width:350}} id="phone" label="Phone no." variant="filled" error={validate_phone!==null} helperText={validate_phone} onChange={(e)=>{validation(e.target.value,"phone")}}/>
+              <TextField sx={{mx:3,my:1,width:350}} id="name" label="User Name*"  error={validate_name!==null} helperText={validate_name} onChange={(e)=>{validation(e.target.value,"name")}} />
+              <TextField sx={{mx:3,my:1,width:350}} id="email" label="Email Id*"  error={validate_email!==null} helperText={validate_email} onChange={(e)=>{validation(e.target.value,"email");}}/>
+              <TextField sx={{mx:3,my:1,width:350}} id="pwd" type="password" label="Password*" error={validate_password!==null} helperText={validate_password} onChange={(e)=>{validation(e.target.value,"password");}}/>
+              <TextField sx={{mx:3,my:1,width:350}} id="repwd"  type="password" label="Renter Password*" error={validate_repwd!==null} helperText={validate_repwd} onChange={(e)=>{validation(e.target.value,"recheckPassword");}}/>
+              <FormLabel sx={{mx:3,my:1,width:333,p:1}} variant="filled" id="demo-row-radio-buttons-group-label">Gender*</FormLabel>
+                <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                        value={gender}
+                        variant="filled"
+                        sx={{mx:3,my:-4,width:349}}
+                        onChange={(e)=>{validation(e.target.value,"gender")}}
+                >
+                <FormControlLabel value="female" control={<Radio />} label="Female" />
+                <FormControlLabel value="male" control={<Radio />} label="Male" />
+                <FormControlLabel value="other" control={<Radio />} label="Other" />
+                </RadioGroup>
+                <FormHelperText sx={{mx:3,my:1,width:350}}>{validate_gender}</FormHelperText>
+              <TextField sx={{mx:3,my:1,width:350}} id="phone" label="Phone number*" error={validate_phone!==null} helperText={validate_phone} onChange={(e)=>{validation(e.target.value,"phone")}}/>
+              
               <Button variant="contained" sx={{mx:12}} type="submit">Submit</Button>
               <Button onClick={() => { navigate("/"); }}>Move back to Sign In page!</Button>
             </Stack>
